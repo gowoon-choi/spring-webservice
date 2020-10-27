@@ -12,6 +12,7 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -52,5 +53,13 @@ public class PostsRepositoryTest {
                 .content("테스트 본문")
                 .author("gowoonvv@gmail.com")
                 .build());
+
+        //when
+        List<Posts> postsList = postRepository.findAll();
+
+        //then
+        Posts posts = postsList.get(0);
+        assertTrue(posts.getCreatedDate().isAfter(now));
+        assertTrue(posts.getModifiedDate().isAfter(now));
     }
 }
